@@ -12,7 +12,7 @@
         
     </head>
     
-    <body>
+    <body style="background-image: url('../static/18067653\ \(1\).jpg');" class="bg-green-200">
       
       {% if fl == 0 %}
       <nav class="bg-gray-800">
@@ -115,9 +115,11 @@
           </div>
         </div>
       </nav>
-        <h2>Welcome {{user.student.full_name}}</h2>
-        <h3>cycles remaining: {{user.student.cycles_remaining}}<br><br>
-  
+        
+        <br>
+        <h2 style="padding-left: 9%;">Welcome {{user.student.full_name}}!</h2>
+        <h3 style="padding-left: 9%;">You have {{user.student.cycles_remaining}} cycles remaining.</h3>
+      
       <table class="rounded-t-lg m-5 w-5/6 mx-auto bg-gray-800 text-gray-200">
         <tr class="text-left border-b border-gray-300">
           <th class="px-4 py-3">ID</th>
@@ -134,19 +136,13 @@
           <td class="px-4 py-3">{{d.no_of_clothes}}</td>
           <td class="px-4 py-3">{{d.delivery_date}}</td>
           <td class="px-4 py-3">{{d.status}}</td>
-          <td class="px-4 py-3">{{d.collection_info}}</td>
           {% if d.status == 'available'%}
           <td class="px-4 py-3"><a href='/collect/{{d.id}}'> collect</a>
+          {%else%}
+          <td class="px-4 py-3">{{d.collection_info}}</td>
           {% endif %}
         </tr>
         {% endfor%}
-        
-        <!-- <tr class="bg-gray-700 border-b border-gray-600">
-          <td class="px-4 py-3">Jill</td>
-          <td class="px-4 py-3">Smith</td>
-          <td class="px-4 py-3">50</td>
-          <td class="px-4 py-3">Male</td>
-        </tr>     -->
       </table>
 
       {%else%}
