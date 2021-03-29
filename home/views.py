@@ -78,10 +78,9 @@ def user_dashboard(request):
 
 def use_cycle(request):
     if request.method == "POST":
-        cf = CycleForm(request.POST)
-        if cf.is_valid():
-            num = cf.cleaned_data.get('no_of_clothes')
-            
+        num = request.POST.get("name")
+        print(num)
+        if num:     
             date_time = datetime.today()
             delivery_date = datetime.today() + timedelta(1)
             collection_info = None
@@ -100,8 +99,16 @@ def use_cycle(request):
             return redirect('/dashboard')
            
     else:
-        cf = CycleForm()
-        return render(request, 'use_cycle.html', {'cycle_form':cf})
+        #print(request.user.student.cycles_remaining)
+        if request.user.is_authenticated:
+            if request.user.student.cycles_remaining<1:
+                return redirect('/dashboard')
+            else:
+                return render(request, 'use_cycle.html')
+
+        else:
+            return redirect('/login')
+
 
 def check(request):
     return render(request,'check.html')

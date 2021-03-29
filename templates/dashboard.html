@@ -106,7 +106,8 @@
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             <a href="/dashboard" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
             {%if user.student.cycles_remaining < 1 %}
-            <a href="#" class="nocycles text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Submit Laundry</a>
+            <a href="#" class="nocycles text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Submit Laundry</a> 
+
             {% else %}
             <a href="/use_cycle" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Submit Laundry</a>
             {% endif%}
