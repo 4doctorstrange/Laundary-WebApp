@@ -37,9 +37,21 @@
             </section>
 
             <section class="mt-10">
-                <form class="flex flex-col" method="POST" action=" " novalidate>
+                <form id="rform" class="flex flex-col" method="POST" action="/dashboard" novalidate>
                     {% csrf_token %}
-                    <div class="mb-6 pt-3 rounded bg-gray-200">
+                    {%for st in form_student%}
+                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                            {{st.label_tag}} {{st}} {{st.errors|striptags}}
+                        </div>
+                    {% endfor %}
+
+                    {%for us in form_user%}
+                        <div class="mb-6 pt-3 rounded bg-gray-200">
+                            {{us.label_tag}} {{us}} {{us.errors|striptags}}
+                        </div>
+                    {% endfor %}
+
+                    <!-- <div class="mb-6 pt-3 rounded bg-gray-200">
                         <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="id_full_name">Full Name</label>
                         <input type="text" required id="id_username" name="full_name" maxlength="100" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
                     </div>
@@ -50,8 +62,9 @@
                     <div class="mb-6 pt-3 rounded bg-gray-200">
                         <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="id_room_no">Room Number</label>
                         <input type="text" required id="id_room_no" name="room_no" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
-                    </div>
-                    <div class="mb-6 pt-3 rounded bg-gray-200">
+                    </div> -->
+                    
+                    <!-- <div class="mb-6 pt-3 rounded bg-gray-200">
                         <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="id_username">Registration Number</label>
                         <input type="text" required id="id_username" name="username" maxlength="150" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
                     </div>
@@ -62,7 +75,7 @@
                     <div class="mb-6 pt-3 rounded bg-gray-200">
                         <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="id_password2">Confirm Password</label>
                         <input type="password" name="password2" autocomplete="new-password" maxlength="32" required id="id_password2" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
-                    </div>
+                    </div> -->
                     <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">Sign Up</button>
                 </form>
             </section>
@@ -76,22 +89,8 @@
             <a href="#" class="hover:underline">Contact</a>
         </footer>
 
-
-        <!-- <form action='' method='post' novalidate>
-            {% csrf_token %}
-            {%for st in form_student%}
-                {{st.label_tag}} {{st}} {{st.errors|striptags}}<br><br>
-            {% endfor %}
+        <!-- <a href='/'>Home</a> -->
             
-
-            {%for us in form_user%}
-                {{us.label_tag}} {{us}} {{us.errors|striptags}}<br><br>
-            {% endfor %}
-            
-                <input type='submit' value="Submit">
-        </form>  -->
-        <a href='/'>Home</a>
-            
-        <script src="" async defer></script>
+        <script src="../static/register.js" async defer></script>
     </body>
 </html>
