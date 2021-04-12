@@ -37,7 +37,7 @@
             </section>
 
             <section class="mt-10">
-                <form id="rform" class="flex flex-col" method="POST" action="/dashboard" novalidate>
+                <form id="rform" class="flex flex-col" method="POST" action="/user_register" novalidate>
                     {% csrf_token %}
                     {%for st in form_student%}
                         <div class="mb-6 pt-3 rounded bg-gray-200">

@@ -18,9 +18,11 @@ def register(request):
         form_student = StudentForm(request.POST)
         if form_user.is_valid() and form_student.is_valid():
             username = form_user.cleaned_data.get("username")
+            print(username, 'userbeamaa')
             password = form_user.cleaned_data.get("password2")
             user = User.objects.create_user(username=username, password = password)
             full_name =  form_student.cleaned_data.get("full_name")
+            print('full_name',full_name)
             block = form_student.cleaned_data.get("block")
             room_no = form_student.cleaned_data.get("room_no")
             new_student = Student(full_name=full_name, block=block, user=user, room_no=room_no)
