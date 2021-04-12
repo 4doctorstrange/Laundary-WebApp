@@ -29,6 +29,7 @@ def register(request):
             new_student.save()
             auth.login(request, user)
             messages.add_message(request, messages.INFO, 'Successfully registered, please login to continue.')
+            return redirect('/')
 
     else:
         form_user = RegisterationForm()
