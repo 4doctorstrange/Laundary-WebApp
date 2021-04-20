@@ -7,7 +7,7 @@ from .models import Student, UseCycle
 class RegisterationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username']
+        fields = ['username', 'email']
         labels = {'username':'Registeration Number'
                   }
     widgets = {'username': forms.TextInput(attrs={'class': 'form-control'}),

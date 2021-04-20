@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .local import Utility
 from datetime import datetime, timedelta, date
+from .email import Email
 
 dic ={1: "unavailable", 2:"available", 3:"collected" }
 
@@ -18,17 +19,21 @@ def register(request):
         form_student = StudentForm(request.POST)
         if form_user.is_valid() and form_student.is_valid():
             username = form_user.cleaned_data.get("username")
-            print(username, 'userbeamaa')
             password = form_user.cleaned_data.get("password2")
-            user = User.objects.create_user(username=username, password = password)
+            email = form_user.cleaned_data.get('email')
+            user = User.objects.create_user(username=username, password = password, email=email)
             full_name =  form_student.cleaned_data.get("full_name")
-            print('full_name',full_name)
             block = form_student.cleaned_data.get("block")
             room_no = form_student.cleaned_data.get("room_no")
             new_student = Student(full_name=full_name, block=block, user=user, room_no=room_no)
             new_student.save()
+            '''sending EMail'''
+            obj = Email()
+            obj.register_email(email)   #telling user his account is been created
+            
+            ''' '''
             auth.login(request, user)
-            messages.add_message(request, messages.INFO, 'Successfully registered, please login to continue.')
+            #messages.success(request,"You have registered successfully! Please login to continue")
             return redirect('/')
 
     else:
@@ -81,23 +86,37 @@ def user_dashboard(request):
 
 def use_cycle(request):
     if request.method == "POST":
-        num = request.POST.get("name")
+        num = request.POST.get("number")
         print(num)
         if num:     
             date_time = datetime.today()
             delivery_date = datetime.today() + timedelta(1)
             collection_info = None
             status = dic[1]
-            print('today', datetime.today())
-            print('delivery', delivery_date)
-            print(status)
+            #print('today', datetime.today())
+            #print('delivery', delivery_date)
+            #print(status)
             cycle = UseCycle(user = request.user.student, no_of_clothes=num, date_time=date_time,
                    delivery_date=delivery_date, collection_info=collection_info, status=status )
             cycle.save()
-
             stu = Student.objects.filter(user = request.user)[0]
             stu.cycles_remaining-=1
+            ''' sending Mail (once remaing cycles are less than 1, this mail will be send'''
+            if stu.cycles_remaining<1:  
+                obj = Email()
+                to = request.user.email
+                name = request.user.student.full_name
+                obj.cycles_exhausted(to,name)
+            ''' '''   
+
             stu.save()
+            '''Sending checkin MAIL'''
+            obj = Email()
+            to = request.user.email
+            print(request.user.email)
+            data = [num, delivery_date]   #sending info like no of clothes and delivery date in the mail
+            obj.checkin(to,data)
+            '''        '''
 
             return redirect('/dashboard')
            
@@ -113,9 +132,6 @@ def use_cycle(request):
             return redirect('/login')
 
 
-def check(request):
-    return render(request,'check.html')
-
 def collect(request, id):
     obj = UseCycle.objects.filter(pk=id)[0]
     delivery = obj.delivery_date
@@ -125,4 +141,9 @@ def collect(request, id):
         obj.status = dic[3]
         obj.collection_info = datetime.today()
         obj.save()
+        '''sending Mail '''
+        obj = Email()
+        to = request.user.email
+        obj.checkin(to)  #sends collection mail
+        '''       '''
     return redirect('/')
