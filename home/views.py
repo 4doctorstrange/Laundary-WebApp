@@ -49,7 +49,7 @@ def user_login(request):
             user = authenticate(username=username, password=password) 
             if user:
                 login(request, user)
-                return redirect('/dashboard')
+                return redirect('/')
             else:
                 login_form = LoginForm()
                 return render(request, 'login.html', {'msg': 'Invalid credentials', 'login_form':login_form} )
@@ -64,6 +64,7 @@ def user_logout(request):
     return redirect('/')
 
 def user_dashboard(request):
+    print(request.user)
     if request.user.is_authenticated:
         current_user = request.user
         fl = 0
@@ -71,9 +72,14 @@ def user_dashboard(request):
             data = UseCycle.objects.order_by('-date_time').all()
             fl = 1
         else:
-            data = UseCycle.objects.filter(user=request.user.student).all()
+            data = UseCycle.objects.filter(student=request.user.student).all()
+            '''  TESTING'''
+            
+            
+
+            '''   '''
             today = date.today()
-            to_be_updated = UseCycle.objects.filter(user=request.user.student, status=dic[1]).all()      #basically updating status if today>delivery date
+            to_be_updated = UseCycle.objects.filter(student=request.user.student, status=dic[1]).all()      #basically updating status if today>delivery date
             for i in to_be_updated: 
                 if today >= i.delivery_date:
                     i.status = dic[2]
@@ -84,19 +90,37 @@ def user_dashboard(request):
     else:
         return redirect('/login')
 
+def admin_dashboard(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        #DEbuggg
+        
+        if request.method == 'POST':
+            reg = request.POST.get("reg")
+            user = User.objects.filter(username=reg )[0]
+            student = Student.objects.filter(user=user)[0]
+            data = UseCycle.objects.filter(student=student)
+        else:
+            data = UseCycle.objects.order_by('-date_time').all()
+            
+        return render(request, 'admin_dashboard.html', {'data':data})
+        
+        
+    else:
+        return redirect('/login')
+
+
+
 def use_cycle(request):
     if request.method == "POST":
         num = request.POST.get("number")
-        print(num)
+        
         if num:     
             date_time = datetime.today()
             delivery_date = datetime.today() + timedelta(1)
             collection_info = None
             status = dic[1]
-            #print('today', datetime.today())
-            #print('delivery', delivery_date)
-            #print(status)
-            cycle = UseCycle(user = request.user.student, no_of_clothes=num, date_time=date_time,
+           
+            cycle = UseCycle(student = request.user.student, no_of_clothes=num, date_time=date_time,
                    delivery_date=delivery_date, collection_info=collection_info, status=status )
             cycle.save()
             stu = Student.objects.filter(user = request.user)[0]
@@ -144,6 +168,6 @@ def collect(request, id):
         '''sending Mail '''
         obj = Email()
         to = request.user.email
-        obj.checkin(to)  #sends collection mail
+        obj.checkout(to)  #sends collection mail
         '''       '''
     return redirect('/')
