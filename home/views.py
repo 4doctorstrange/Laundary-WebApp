@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
-from .forms import RegisterationForm, StudentForm, LoginForm, CycleForm
+from .forms import RegisterationForm, StudentForm, LoginForm, CycleForm, ContactAdminForm
 from django.contrib import auth, messages
-from .models import Student, UseCycle
+from .models import Student, UseCycle, ContactAdmin
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .local import Utility
@@ -64,29 +64,22 @@ def user_logout(request):
     return redirect('/')
 
 def user_dashboard(request):
-    print(request.user)
+    '''   DEBUG '''
+    print(request.user.student.cycles_remaining)
+
+    '''  '''
+    
     if request.user.is_authenticated:
         current_user = request.user
-        fl = 0
-        if current_user.is_superuser:
-            data = UseCycle.objects.order_by('-date_time').all()
-            fl = 1
-        else:
-            data = UseCycle.objects.filter(student=request.user.student).all()
-            '''  TESTING'''
-            
-            
-
-            '''   '''
-            today = date.today()
-            to_be_updated = UseCycle.objects.filter(student=request.user.student, status=dic[1]).all()      #basically updating status if today>delivery date
-            for i in to_be_updated: 
-                if today >= i.delivery_date:
-                    i.status = dic[2]
-                    i.save()
+        data = UseCycle.objects.filter(student=request.user.student).all()
+        today = date.today()
+        to_be_updated = UseCycle.objects.filter(student=request.user.student, status=dic[1]).all()      #basically updating status if today>delivery date
+        for i in to_be_updated: 
+            if today >= i.delivery_date:
+                i.status = dic[2]
+                i.save()
                 
-
-        return render(request, 'dashboard.html', {'user':current_user, 'data': data, 'fl':fl})
+        return render(request, 'dashboard.html', {'user':current_user, 'data': data})
     else:
         return redirect('/login')
 
@@ -109,7 +102,6 @@ def admin_dashboard(request):
         return redirect('/login')
 
 
-
 def use_cycle(request):
     if request.method == "POST":
         num = request.POST.get("number")
@@ -126,7 +118,8 @@ def use_cycle(request):
             stu = Student.objects.filter(user = request.user)[0]
             stu.cycles_remaining-=1
             ''' sending Mail (once remaing cycles are less than 1, this mail will be send'''
-            if stu.cycles_remaining<1:  
+            if stu.cycles_remaining<1:
+                stu.cycles_remaining=0  
                 obj = Email()
                 to = request.user.email
                 name = request.user.student.full_name
@@ -155,7 +148,6 @@ def use_cycle(request):
         else:
             return redirect('/login')
 
-
 def collect(request, id):
     obj = UseCycle.objects.filter(pk=id)[0]
     delivery = obj.delivery_date
@@ -171,3 +163,74 @@ def collect(request, id):
         obj.checkout(to)  #sends collection mail
         '''       '''
     return redirect('/')
+
+def contact_admin(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            contact_form = ContactAdminForm(request.POST)
+            if contact_form.is_valid():
+                cycles_needed = contact_form.cleaned_data.get('cycles_needed')
+                username = request.user.username
+                full_name = request.user.student.full_name
+                entry = ContactAdmin(username=username, full_name=full_name, cycles_needed=cycles_needed)
+                entry.save()
+                return redirect('/dashboard')
+        else:
+            contact_form = ContactAdminForm()
+            print(contact_form)
+            return render(request, 'contact_admin.html', {'contact_form':contact_form})
+
+def view_requests(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        all_requests = ContactAdmin.objects.all()
+        return render(request, 'view_requests.html', {'data': all_requests })
+    else:
+        return redirect('/login')
+
+def confirm(request,id):
+    if request.user.is_superuser:
+        obj = ContactAdmin.objects.get(id=id)
+        print('id getting ', id)
+        username= obj.username
+        cycles_needed = obj.cycles_needed
+        user = User.objects.filter(username=username)[0]
+        student = Student.objects.filter(user=user)[0]
+        student.cycles_remaining+=cycles_needed
+        student.save()
+    
+        '''Sending confirmation via mail
+        em=Email()
+        em.confirmation(user.email)
+
+        ''' 
+        
+        obj.delete()  #finally deleting object as it is no more a request
+        return redirect('/admin_dashboard/view_requests')
+    else:
+        return redirect('/login')
+
+def delete(request,id):
+    if request.user.is_superuser:
+        obj = ContactAdmin.objects.get(id=id)
+        user = User.objects.filter(username=obj.username)[0]
+        '''Sending confirmation via mail'''
+        em=Email()
+        em.delete(user.email)
+        ''' ''' 
+        obj.delete()
+        return redirect('/admin_dashboard/view_requests')
+
+    else:
+        return redirect('/login')
+
+
+
+
+
+
+
+
+
+
+
+

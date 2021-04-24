@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from . import views
+from .import views
 
 urlpatterns = [
     path('', views.index, name="index"),
@@ -12,6 +12,11 @@ urlpatterns = [
     path('use_cycle', views.use_cycle, name="use_cycle"),
     #path('check', views.check, name="check"),
     path('collect/<int:id>', views.collect, name="collect"),
+    path('contact_admin', views.contact_admin, name="contact_admin"),
+    path('admin_dashboard/view_requests', views.view_requests, name="view_requests"),
+    path('confirm/<int:id>', views.confirm, name="confirm"),
+    path('delete/<int:id>', views.delete, name="confirm"),
+
     
     
 

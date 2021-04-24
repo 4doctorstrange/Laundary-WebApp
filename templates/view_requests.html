@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Dash</title>
+  <title>Requests</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
@@ -36,12 +36,11 @@
           <div class="hidden sm:block sm:ml-6">
             <div class="flex space-x-4">
             <a href="/admin_dashboard"
-              class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
-              
-              <a href="/admin_dashboard/view_requests"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">View Requests</a>
+          class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
               <a href="/logout"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</a>
+              <a href="/admin_dashboard/view_requests"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">View Requests</a>
             </div>
           </div>
         </div>
@@ -66,48 +65,25 @@
 
 
 
-  <h3>Admin's panel </h3>
-
-  <div class="m-7">
-    <form action="/admin_dashboard" method="POST" id="form">
-      {% csrf_token %}
-
-      <div class="mb-6">
-        
-        <label for="name" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Student's ID</label>
-
-        <input type="text" min="1" max="8" name="reg"
-          class="bg-gray-100 px-2 py-1 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
-      </div>
-
-      <div class="mb-6">
-        <button type="submit"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
-          <a href='/admin_dashboard' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View All</a>
-      </div>
-      
-    </form>
+ 
 
   </div>
   <table class="rounded-t-lg m-5 w-5/6 mx-auto bg-gray-800 text-gray-200">
     <tr class="text-left border-b border-gray-300">
-      <th class="px-4 py-3">Id</th>
-      <th class="px-4 py-3">Date</th>
+      <th class="px-4 py-3">ID</th>
+      <th class="px-4 py-3">Registeration Number</th>
       <th class="px-4 py-3">Name of student</th>
-      <th class="px-4 py-3">No of clothes</th>
-      <th class="px-4 py-3">Delivery Date</th>
-      <th class="px-4 py-3">Status</th>
-      <th class="px-4 py-3">Collection Info</th>
+      <th class="px-4 py-3">Cycles Requested</th>
+      <th class="px-4 py-3">Confirm/Delete</th>
+      
     </tr>
     {% for d in data%}
     <tr class="bg-gray-700 border-b border-gray-600">
       <th class="px-4 py-3" scope="row">{{d.id}}</th>
-      <td class="px-4 py-3">{{d.date_time}}</td>
-      <td class="px-4 py-3">{{d.student.full_name}}
-      <td class="px-4 py-3">{{d.no_of_clothes}}</td>
-      <td class="px-4 py-3">{{d.delivery_date}}</td>
-      <td class="px-4 py-3">{{d.status}}</td>
-      <td class="px-4 py-3">{{d.collection_info}}</td>
+      <td class="px-4 py-3">{{d.username}}</td>
+      <td class="px-4 py-3">{{d.full_name}}
+      <td class="px-4 py-3">{{d.cycles_needed}}</td>
+      <td class="px-4 py-3"><a href="/confirm/{{d.id}}" >Confirm</a>     <a href="/delete/{{d.id}}" >Delete</a></td>
     </tr>
     {% endfor%}
 

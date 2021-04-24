@@ -16,7 +16,7 @@
 
 <body style="background-image: url('../static/18067653\ \(1\).jpg');" class="bg-green-200">
 
-  {% if fl == 0 %}
+
   <nav class="bg-gray-800">
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
       <div class="relative flex items-center justify-between h-16">
@@ -67,7 +67,7 @@
                   class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Submit
                   Laundry</a>
                 {%endif%}
-                <a href="#"
+                <a href="contact_admin"
                   class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact
                   Admin</a>
                 <a href="/logout"
@@ -127,7 +127,7 @@
             class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Submit
             Laundry</a>
           {% endif%}
-          <a href="#"
+          <a href="/contact_admin"
             class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact
             Admin</a>
           <a href="/logout"
@@ -165,35 +165,8 @@
     {% endfor%}
   </table>
 
-  {%else%}
-
-  <h3>Admin's panel </h3>
-  <a href='/logout' class='btn btn-primary'>Logout</a>
-  <table class="rounded-t-lg m-5 w-5/6 mx-auto bg-gray-800 text-gray-200">
-    <tr class="text-left border-b border-gray-300">
-      <th class="px-4 py-3">Id</th>
-      <th class="px-4 py-3">Date</th>
-      <th class="px-4 py-3">Name of student</th>
-      <th class="px-4 py-3">No of clothes</th>
-      <th class="px-4 py-3">Delivery Date</th>
-      <th class="px-4 py-3">Status</th>
-      <th class="px-4 py-3">Collection Info</th>
-    </tr>
-    {% for d in data%}
-    <tr class="bg-gray-700 border-b border-gray-600">
-      <th class="px-4 py-3" scope="row">{{d.id}}</th>
-      <td class="px-4 py-3">{{d.date_time}}</td>
-      <td class="px-4 py-3">{{d.user.full_name}}
-      <td class="px-4 py-3">{{d.no_of_clothes}}</td>
-      <td class="px-4 py-3">{{d.delivery_date}}</td>
-      <td class="px-4 py-3">{{d.status}}</td>
-      <td class="px-4 py-3">{{d.collection_info}}</td>
-    </tr>
-    {% endfor%}
-
-  </table>
-
-  {%endif%}
+  
+  
 
   <!-- {% if fl == 0 %}
           <h2>welcome {{user.student.full_name}}</h2>

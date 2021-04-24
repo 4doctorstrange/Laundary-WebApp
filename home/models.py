@@ -12,8 +12,7 @@ class Student(models.Model):
     cycles_remaining = models.IntegerField(default=3)
 
     def __str__(self):
-        return self.user
-
+        return str(self.user)
 
 class UseCycle(models.Model):
     cloth = [
@@ -31,4 +30,9 @@ class UseCycle(models.Model):
     status = models.CharField(max_length=30)
 
     def __str__(self):
-        return self.student
+        return str(self.student)
+
+class ContactAdmin(models.Model):
+    username = models.CharField(max_length=9)
+    full_name = models.CharField(max_length=25)
+    cycles_needed = models.IntegerField()

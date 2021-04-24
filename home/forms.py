@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, User
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from django.contrib.auth.models import User
-from .models import Student, UseCycle
+from .models import Student, UseCycle, ContactAdmin
 
 class RegisterationForm(UserCreationForm):
     class Meta:
@@ -31,3 +31,9 @@ class CycleForm(forms.ModelForm):
         model = UseCycle
         fields = ['no_of_clothes']
         labels = {'no_of_clothes': 'Number of clothes'}
+
+class ContactAdminForm(forms.ModelForm):
+    class Meta:
+        model = ContactAdmin
+        fields = ['cycles_needed']
+        labels = {'cycles_needed' : 'Number of cycles required'}
