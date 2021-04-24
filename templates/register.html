@@ -1,60 +1,61 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Registeration form</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/static/login.css">
-    </head>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Registeration form</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/login.css">
+</head>
 
 
-    <body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
-        <header class="max-w-lg mx-auto">
-            <a href="#">
-                <h1 class="text-4xl font-bold text-white text-center">Laundry</h1>
-            </a>
-        </header>
+<body class="body-bg min-h-screen pt-12 md:pt-20 pb-6 px-2 md:px-0" style="font-family:'Lato',sans-serif;">
+    <header class="max-w-lg mx-auto">
+        <a href="#">
+            <h1 class="text-4xl font-bold text-white text-center">Laundry</h1>
+        </a>
+    </header>
 
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
-                    {{ message }}
-                </li>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+
+    <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
+        <section>
+            <h3 class="font-bold text-2xl">Welcome to Laundry</h3>
+            <p class="text-gray-600 pt-2">Sign up.</p>
+        </section>
+
+        <section class="mt-10">
+            <form id="rform" class="flex flex-col" method="POST" action="/user_register" novalidate>
+                {% csrf_token %}
+                {%for st in form_student%}
+                <div class="mb-6 pt-3 rounded bg-gray-200">
+                    {{st.label_tag}} {{st}} {{st.errors|striptags}}
+                </div>
                 {% endfor %}
-            </ul>
-        {% endif %} 
 
-        
+                {%for us in form_user%}
+                <div class="mb-6 pt-3 rounded bg-gray-200">
+                    {{us.label_tag}} {{us}} {{us.errors|striptags}}
+                </div>
+                {% endfor %}
 
-        <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
-            <section>
-                <h3 class="font-bold text-2xl">Welcome to Laundry</h3>
-                <p class="text-gray-600 pt-2">Sign up.</p>
-            </section>
-
-            <section class="mt-10">
-                <form id="rform" class="flex flex-col" method="POST" action="/user_register" novalidate>
-                    {% csrf_token %}
-                    {%for st in form_student%}
-                        <div class="mb-6 pt-3 rounded bg-gray-200">
-                            {{st.label_tag}} {{st}} {{st.errors|striptags}}
-                        </div>
-                    {% endfor %}
-
-                    {%for us in form_user%}
-                        <div class="mb-6 pt-3 rounded bg-gray-200">
-                            {{us.label_tag}} {{us}} {{us.errors|striptags}}
-                        </div>
-                    {% endfor %}
-
-                    <!-- <div class="mb-6 pt-3 rounded bg-gray-200">
+                <!-- <div class="mb-6 pt-3 rounded bg-gray-200">
                         <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="id_full_name">Full Name</label>
                         <input type="text" required id="id_username" name="full_name" maxlength="100" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
                     </div>
@@ -66,8 +67,8 @@
                         <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="id_room_no">Room Number</label>
                         <input type="text" required id="id_room_no" name="room_no" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
                     </div> -->
-                    
-                    <!-- <div class="mb-6 pt-3 rounded bg-gray-200">
+
+                <!-- <div class="mb-6 pt-3 rounded bg-gray-200">
                         <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="id_username">Registration Number</label>
                         <input type="text" required id="id_username" name="username" maxlength="150" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
                     </div>
@@ -79,21 +80,25 @@
                         <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="id_password2">Confirm Password</label>
                         <input type="password" name="password2" autocomplete="new-password" maxlength="32" required id="id_password2" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
                     </div> -->
-                    <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" type="submit">Sign Up</button>
-                </form>
-            </section>
-        </main>
+                <button
+                    class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+                    type="submit">Sign Up</button>
+            </form>
+        </section>
+    </main>
 
-        <div class="max-w-lg mx-auto text-center mt-12 mb-6">
-            <p class="text-white">Already have an account? <a href="/login" class="font-bold hover:underline">Sign in</a>.</p>
-        </div>
+    <div class="max-w-lg mx-auto text-center mt-12 mb-6">
+        <p class="text-white">Already have an account? <a href="/login" class="font-bold hover:underline">Sign in</a>.
+        </p>
+    </div>
 
-        <footer class="max-w-lg mx-auto flex justify-center text-white">
-            <a href="#" class="hover:underline">Contact</a>
-        </footer>
+    <footer class="max-w-lg mx-auto flex justify-center text-white">
+        <a href="#" class="hover:underline">Contact</a>
+    </footer>
 
-        <!-- <a href='/'>Home</a> -->
-            
-        <script src="../static/register.js" async defer></script>
-    </body>
+    <!-- <a href='/'>Home</a> -->
+
+    <script src="../static/register.js" async defer></script>
+</body>
+
 </html>

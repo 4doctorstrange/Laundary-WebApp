@@ -1,34 +1,45 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="utf-8">
-        
-        <title>Home Page</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/static/index.css">
-    </head>
-    <body>
-        <div class="ml-10 mt-10">
-            <h2 class="mb-10 text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">New Door Hostels Laundry</h2>
-            {% if request.user.is_authenticated %}
-                {% if request.user.is_superuser %}
-                    <a href='/admin_dashboard' class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Admin's Dashboard</a>
-                    <a href='/logout' class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Logout</a>
 
-                {% else %}
-                    <a href='/dashboard' class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Dashboard</a>
-                    <a href='/logout' class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Logout</a>
-                {% endif %}
-            {% else %}
-            <a href='/user_register' class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Signup</a>
-            <a href='/login' class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Login</a>
-            {% endif %}
-        </div>
-        
-        <script src="" async defer></script>
-    </body>
+<head>
+    <meta charset="utf-8">
+
+    <title>Home Page</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+
+<body>
+    <div class="ml-10 mt-10">
+        <h2 class="mb-10 text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">New Door Hostels Laundry
+        </h2>
+        {% if request.user.is_authenticated %}
+        {% if request.user.is_superuser %}
+        <a href='/admin_dashboard'
+            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Admin's
+            Dashboard</a>
+        <a href='/logout'
+            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Logout</a>
+
+        {% else %}
+        <a href='/dashboard'
+            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Dashboard</a>
+        <a href='/logout'
+            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Logout</a>
+        {% endif %}
+        {% else %}
+        <a href='/user_register'
+            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Signup</a>
+        <a href='/login'
+            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Login</a>
+        {% endif %}
+    </div>
+
+    <script src="" async defer></script>
+</body>
+
 </html>

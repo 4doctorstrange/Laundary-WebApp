@@ -1,235 +1,120 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Dash</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        
-    </head>
 
- <body style="background-image: url('../static/18067653\ \(1\).jpg');" class="bg-green-200">
-      
-      <nav class="bg-gray-800">
-        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-          <div class="relative flex items-center justify-between h-16">
-            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-              <!-- Mobile menu button-->
-              <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
-                <span class="sr-only">Open main menu</span>
-                <!--
-                  Icon when menu is closed.
-      
-                  Heroicon name: outline/menu
-      
-                  Menu open: "hidden", Menu closed: "block"
-                -->
-                <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-                <!--
-                  Icon when menu is open.
-      
-                  Heroicon name: outline/x
-      
-                  Menu open: "block", Menu closed: "hidden"
-                -->
-                <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-              <!-- <div class="flex-shrink-0 flex items-center">
-                <img class="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
-                <img class="hidden lg:block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg" alt="Workflow">
-              </div> -->
-              <div class="hidden sm:block sm:ml-6">
-                <div class="flex space-x-4">
-                  <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                  
-                  <a href="/logout" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</a>
-                </div>
-              </div>
-            </div>
-            <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              <!-- <button class="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                <span class="sr-only">View notifications</span>
-                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                </svg>
-              </button> -->
-      
-              <!-- Profile dropdown -->
-              <!-- <div class="ml-3 relative"> -->
-                <!-- <div>
-                  <button type="button" class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu" aria-expanded="false" aria-haspopup="true">
-                    <span class="sr-only">Open user menu</span>
-                    <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                  </button>
-                </div> -->
-      
-                <!--
-                  Dropdown menu, show/hide based on menu state.
-      
-                  Entering: "transition ease-out duration-100"
-                    From: "transform opacity-0 scale-95"
-                    To: "transform opacity-100 scale-100"
-                  Leaving: "transition ease-in duration-75"
-                    From: "transform opacity-100 scale-100"
-                    To: "transform opacity-0 scale-95"
-                -->
-                <!-- <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
-                </div> -->
-              </div>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Dash</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<body style="background-image: url('../static/18067653\ \(1\).jpg');" class="bg-green-200">
+
+  <nav class="bg-gray-800">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+      <div class="relative flex items-center justify-between h-16">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <button type="button"
+            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            aria-controls="mobile-menu" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+          <div class="hidden sm:block sm:ml-6">
+            <div class="flex space-x-4">
+              <a href="/logout"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</a>
             </div>
           </div>
         </div>
-      
-        <!-- Mobile menu, show/hide based on menu state. -->
-        <div class="sm:hidden" id="mobile-menu">
-          <div class="px-2 pt-2 pb-3 space-y-1">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a href="/admin_dashboard" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
-        
-            <a href="/logout" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Logout</a>
-          </div>
+        <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
         </div>
-      </nav>
-        
-        
+      </div>
+    </div>
+    </div>
 
-<h3>Admin's pannel </h3>
-<table class="table table-dark">
-<form action="/admin_dashboard" method="POST" id="form">
-    {% csrf_token %}
-      
-    <div class="mb-6">
+    <div class="sm:hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        <a href="/admin_dashboard"
+          class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
+
+        <a href="/logout"
+          class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <h3>Admin's panel </h3>
+
+  <div class="m-7">
+    <form action="/admin_dashboard" method="POST" id="form">
+      {% csrf_token %}
+
+      <div class="mb-6">
+        
         <label for="name" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Student's ID</label>
-        
-        <input type="text" min="1" max="8" name="reg"   />
-    </div>
-                          
-    <div class="mb-6">
-        <button type="submit" class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Submit</button>
-    </div>
-    
-</form>
-<a href='/admin_dashboard' class='btn btn-primary'>ViewAll</a>
-<thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Date</th>
-      <th scope="col">Name of student</th>
-      <th scope="col">No of clothes</th>
-      <th scope="col">Delivery Date</th>
-      <th scope="col">Status</th>
-      <th scope="col">Collection Info</th>
+
+        <input type="text" min="1" max="8" name="reg"
+          class="bg-gray-100 px-2 py-1 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+      </div>
+
+      <div class="mb-6">
+        <button type="submit"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+          <a href='/admin_dashboard' class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View All</a>
+      </div>
+      
+    </form>
+
+  </div>
+  <table class="rounded-t-lg m-5 w-5/6 mx-auto bg-gray-800 text-gray-200">
+    <tr class="text-left border-b border-gray-300">
+      <th class="px-4 py-3">Id</th>
+      <th class="px-4 py-3">Date</th>
+      <th class="px-4 py-3">Name of student</th>
+      <th class="px-4 py-3">No of clothes</th>
+      <th class="px-4 py-3">Delivery Date</th>
+      <th class="px-4 py-3">Status</th>
+      <th class="px-4 py-3">Collection Info</th>
     </tr>
-  </thead>
-  <tbody>
     {% for d in data%}
-    <tr>
-      <th scope="row">{{d.id}}</th>
-      <td>{{d.date_time}}</td>
-      <td>{{d.student.full_name}}
-      <td>{{d.no_of_clothes}}</td>
-      <td>{{d.delivery_date}}</td>
-      <td>{{d.status}}</td>
-      <td>{{d.collection_info}}</td>
+    <tr class="bg-gray-700 border-b border-gray-600">
+      <th class="px-4 py-3" scope="row">{{d.id}}</th>
+      <td class="px-4 py-3">{{d.date_time}}</td>
+      <td class="px-4 py-3">{{d.student.full_name}}
+      <td class="px-4 py-3">{{d.no_of_clothes}}</td>
+      <td class="px-4 py-3">{{d.delivery_date}}</td>
+      <td class="px-4 py-3">{{d.status}}</td>
+      <td class="px-4 py-3">{{d.collection_info}}</td>
     </tr>
     {% endfor%}
-  </tbody>
 
-</table>
+  </table>
 
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+</body>
 
-        <!-- {% if fl == 0 %}
-          <h2>welcome {{user.student.full_name}}</h2>
-          {%if user.student.cycles_remaining < 1 %}
-            <h3>Your limit has been reached, pls contact adminstration to add more cycles</h3>
-            <a href="#">Contact admin</a> <a href='/logout'>Logout</a>
-            {% else %}
-            <h3>cycles remaining: {{user.student.cycles_remaining}}<br><br>
-            <a href='/use_cycle'>Use a Cycle</a> <a href='/logout'>Logout</a>
-          {% endif%}
-
-          <table class="table table-dark">
-              <thead>
-                  <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">No of clothes</th>
-                    <th scope="col">Delivery Date</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Collection Info</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for d in data%}
-                  <tr>
-                      <th scope="row">{{d.id}}</th>
-                      <td>{{d.date_time}}</td>
-                      <td>{{d.no_of_clothes}}</td>
-                      <td>{{d.delivery_date}}</td>
-                      <td>{{d.status}}</td>
-                      <td>{{d.collection_info}}</td>
-                      {% if d.status == 'available'%}
-                      <td><a href='/collect/{{d.id}}'> collect</a>
-                      {% endif %}
-                  </tr>
-                  {% endfor%}
-              </tbody>
-          </table>
-
-
-{%else%}
-
-<h3>Admin's pannel </h3>
-<a href='/logout'>Logout</a>
-<table class="table table-dark">
-<thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Date</th>
-      <th scope="col">Name of student</th>
-      <th scope="col">No of clothes</th>
-      <th scope="col">Delivery Date</th>
-      <th scope="col">Status</th>
-      <th scope="col">Collection Info</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for d in data%}
-    <tr>
-      <th scope="row">{{d.id}}</th>
-      <td>{{d.date_time}}</td>
-      <td>{{d.user.full_name}}
-      <td>{{d.no_of_clothes}}</td>
-      <td>{{d.delivery_date}}</td>
-      <td>{{d.status}}</td>
-      <td>{{d.collection_info}}</td>
-    </tr>
-    {% endfor%}
-  </tbody>
-
-</table> 
-{%endif%}
--->
-
-
-
-
-      <script src="../static/dashboard.js"></script>
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    </body>
 </html>
