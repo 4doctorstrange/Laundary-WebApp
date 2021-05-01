@@ -59,7 +59,8 @@
             <div class="flex space-x-4">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <a href="/dashboard" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
-              {%if user.student.cycles_remaining < 1 %} <a href="#"
+              {%if user.student.cycles_remaining < 1 %} 
+              <a href="#"
                 class="nocycles text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                 Submit Laundry</a>
                 {%else%}
@@ -136,9 +137,22 @@
     </div>
   </nav>
 
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+
+
   <br>
+
   <h2 style="padding-left: 9%;">Welcome {{user.student.full_name}}!</h2>
-  <h3 style="padding-left: 9%;">You have {{user.student.cycles_remaining}} cycles remaining.</h3>
+  <h3 style="padding-left: 9%;">You have {{user.student.cycles_remaining}} cycles remaining.</h3> 
+
+  
 
   <table class="rounded-t-lg m-5 w-5/6 mx-auto bg-gray-800 text-gray-200">
     <tr class="text-left border-b border-gray-300">

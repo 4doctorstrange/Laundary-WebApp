@@ -37,10 +37,11 @@
             <div class="flex space-x-4">
             <a href="/admin_dashboard"
           class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
-              <a href="/logout"
-                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</a>
+              
               <a href="/admin_dashboard/view_requests"
                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">View Requests</a>
+              <a href="/logout"
+                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Logout</a>
             </div>
           </div>
         </div>
@@ -62,6 +63,15 @@
       </div>
     </div>
   </nav>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
 
 
 

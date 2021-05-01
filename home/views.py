@@ -64,11 +64,6 @@ def user_logout(request):
     return redirect('/')
 
 def user_dashboard(request):
-    '''   DEBUG '''
-    print(request.user.student.cycles_remaining)
-
-    '''  '''
-    
     if request.user.is_authenticated:
         current_user = request.user
         data = UseCycle.objects.filter(student=request.user.student).all()
@@ -89,7 +84,12 @@ def admin_dashboard(request):
         
         if request.method == 'POST':
             reg = request.POST.get("reg")
-            user = User.objects.filter(username=reg )[0]
+            user = User.objects.filter(username=reg)   #here user is a query set
+            if not user:
+                messages.error(request,'Invalid registeration number entered')
+                return redirect('/admin_dashboard')
+            
+            user = user[0]      #first and only element in query set is our target user
             student = Student.objects.filter(user=user)[0]
             data = UseCycle.objects.filter(student=student)
         else:
@@ -153,16 +153,16 @@ def collect(request, id):
     delivery = obj.delivery_date
     today = date.today()
     collected = 0
-    if today >= delivery:
-        obj.status = dic[3]
-        obj.collection_info = datetime.today()
-        obj.save()
-        '''sending Mail '''
-        obj = Email()
-        to = request.user.email
-        obj.checkout(to)  #sends collection mail
-        '''       '''
-    return redirect('/')
+    obj.status = dic[3]
+    obj.collection_info = datetime.today()
+    obj.save()
+    '''sending Mail '''
+    obj = Email()
+    to = request.user.email
+    obj.checkout(to)  #sends collection mail
+    '''       '''
+    messages.success(request, 'Laundary Collected!') 
+    return redirect('/dashboard')
 
 def contact_admin(request):
     if request.user.is_authenticated:
@@ -183,6 +183,7 @@ def contact_admin(request):
 def view_requests(request):
     if request.user.is_authenticated and request.user.is_superuser:
         all_requests = ContactAdmin.objects.all()
+    
         return render(request, 'view_requests.html', {'data': all_requests })
     else:
         return redirect('/login')
@@ -190,7 +191,7 @@ def view_requests(request):
 def confirm(request,id):
     if request.user.is_superuser:
         obj = ContactAdmin.objects.get(id=id)
-        print('id getting ', id)
+        
         username= obj.username
         cycles_needed = obj.cycles_needed
         user = User.objects.filter(username=username)[0]
@@ -203,7 +204,7 @@ def confirm(request,id):
         em.confirmation(user.email)
 
         ''' 
-        
+        messages.success(request,'Request granted!')
         obj.delete()  #finally deleting object as it is no more a request
         return redirect('/admin_dashboard/view_requests')
     else:
@@ -218,6 +219,7 @@ def delete(request,id):
         em.delete(user.email)
         ''' ''' 
         obj.delete()
+        messages.success(request,'Request removed!')
         return redirect('/admin_dashboard/view_requests')
 
     else:
