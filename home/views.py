@@ -199,11 +199,11 @@ def confirm(request,id):
         student.cycles_remaining+=cycles_needed
         student.save()
     
-        '''Sending confirmation via mail
+        '''Sending confirmation via mail'''
         em=Email()
         em.confirmation(user.email)
 
-        ''' 
+        
         messages.success(request,'Request granted!')
         obj.delete()  #finally deleting object as it is no more a request
         return redirect('/admin_dashboard/view_requests')

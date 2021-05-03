@@ -18,7 +18,7 @@ class Email:
         send_mail('Cycles exhausted', 'Dear '+name+", this is to inform you that all of yours cycles are exhausted, you may contact admin if you wish for more cycles",
                  'laundarydjango@gmail.com',[to])
     
-    def confirmations(self,to):
+    def confirmation(self,to):
         send_mail('Request accepted', 'We are pleased to inform you that your request for more laundary cycles has been granted', 'laundarydjango@gmail.com',[to])
 
     def delete(self,to):
