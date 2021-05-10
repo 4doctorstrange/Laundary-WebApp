@@ -26,6 +26,34 @@
             <p class="text-gray-600 pt-2">Sign in to your account.</p>
         </section>
 
+{% if messages %}
+  {% for message in messages %}
+    <!-- <li class="{{ message.tags }}">{{ message }}</li> -->
+    {% if message.tags == "success" %}
+      <div id="alert" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative " role="alert">
+        <!-- <strong class="font-bold">Holy smokes!</strong> -->
+        <span class="block sm:inline">{{ message }}</span>
+        <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+          <button class="focus:outline-none" onclick="remove()" id="cross">
+            <svg class="fill-current h-6 w-6 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+          </button>
+        </span>
+      </div>
+    {% else %}
+      <div id="alert" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <span class="block sm:inline">{{ message }}</span>
+        <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+          <button class="focus:outline-none" onclick="remove()" id="cross">
+            <svg class="fill-current h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+          </button>
+        </span>
+      </div>
+      {%endif%}
+  {% endfor %}
+{% endif %}
+
+
+
         <section class="mt-10">
             <form class="flex flex-col" method="POST" action=" " novalidate>
                 {% csrf_token %}
@@ -40,11 +68,6 @@
                     <input type="password" name="password" maxlength="32" required id="id_password"
                         class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
                 </div>
-                <p id="message">
-                    {% for msg in msg %}
-                    {{msg}}
-                    {% endfor%}
-                </p>
                 <div class="flex justify-end">
                     <a href="#" class="text-sm text-purple-600 hover:text-purple-700 hover:underline mb-6">Forgot your
                         password?</a>
@@ -66,6 +89,21 @@
     </footer>
 
     <script src="/static/login.js" async defer></script>
+    <script>
+    function remove() {
+    var alert = document.getElementById('alert');
+    alert.classList.add('hidden');
+  }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

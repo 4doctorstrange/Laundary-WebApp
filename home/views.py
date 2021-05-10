@@ -52,7 +52,8 @@ def user_login(request):
                 return redirect('/')
             else:
                 login_form = LoginForm()
-                return render(request, 'login.html', {'msg': 'Invalid credentials', 'login_form':login_form} )
+                messages.error(request,'Invalid credentials!')
+                return render(request, 'login.html')
         else:
             login_form = LoginForm()
             return render(request, 'login.html',{'login_form':login_form})
@@ -92,6 +93,7 @@ def admin_dashboard(request):
             user = user[0]      #first and only element in query set is our target user
             student = Student.objects.filter(user=user)[0]
             data = UseCycle.objects.filter(student=student)
+           
         else:
             data = UseCycle.objects.order_by('-date_time').all()
             
@@ -177,7 +179,7 @@ def contact_admin(request):
                 return redirect('/dashboard')
         else:
             contact_form = ContactAdminForm()
-            print(contact_form)
+            #print(contact_form)
             return render(request, 'contact_admin.html', {'contact_form':contact_form})
 
 def view_requests(request):
