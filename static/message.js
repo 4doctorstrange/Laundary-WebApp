@@ -1,5 +1,6 @@
-const a = document.querySelector('.success');
-if (a) {
-    a.remove();
-    alert(a.textContent);
+function remove() {
+    var alert = document.getElementById('alert');
+    alert.classList.add('hidden');
 }
+
+console.log('test')
