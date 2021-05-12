@@ -13,35 +13,6 @@
     <!-- <link rel="stylesheet" href="/static/index.css"> -->
 </head>
 
-<!-- <body>
-    <div class="ml-10 mt-10">
-        <h2 class="mb-10 text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">New Door Hostels Laundry
-        </h2>
-        {% if request.user.is_authenticated %}
-        {% if request.user.is_superuser %}
-        <a href='/admin_dashboard'
-            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Admin's
-            Dashboard</a>
-        <a href='/logout'
-            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Logout</a>
-
-        {% else %}
-        <a href='/dashboard'
-            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Dashboard</a>
-        <a href='/logout'
-            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Logout</a>
-        {% endif %}
-        {% else %}
-        <a href='/user_register'
-            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Signup</a>
-        <a href='/login'
-            class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 border border-indigo-700 rounded">Login</a>
-        {% endif %}
-    </div>
-
-    <script src="" async defer></script>
-</body> -->
-
 <body class="bg-gray-400 font-sans leading-normal tracking-normal">
     {% if request.user.is_authenticated %}
         <!--Nav-->
@@ -59,26 +30,26 @@
                         </li>
                         {% if request.user.is_superuser %}
                             <li class="mr-3">
-                                <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/admin_dashboard">Dashboard</a>
+                                <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/admin_dashboard">Dashboard</a>
                             </li>
                             <li class="mr-3">
-                                <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/admin_dashboard/view_requests">View Requests</a>
+                                <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/admin_dashboard/view_requests">View Requests</a>
                             </li>
                             <li class="mr-3">
-                                <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/logout">Logout</a>
+                                <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/logout">Logout</a>
                             </li>
                         {% else %}
                             <li class="mr-3">
-                                <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="dashboard">Dashboard</a>
+                                <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="dashboard">Dashboard</a>
                             </li>
                             <li class="mr-3">
-                                <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/use_cycle">Submit Laundry</a>
+                                <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/use_cycle">Submit Laundry</a>
                             </li>
                             <li class="mr-3">
-                                <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/contact_admin">Contact Admin</a>
+                                <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/contact_admin">Contact Admin</a>
                             </li>
                             <li class="mr-3">
-                                <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/logout">Logout</a>
+                                <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/logout">Logout</a>
                             </li>
                         {% endif %}
                     </ul>
@@ -124,10 +95,10 @@
                             <a class="inline-block py-2 px-4 text-white no-underline" href="/">Home</a>
                         </li>
                         <li class="mr-3">
-                            <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/login">Login</a>
+                            <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/login">Login</a>
                         </li>
                         <li class="mr-3">
-                            <a class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/user_register">Signup</a>
+                            <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/user_register">Signup</a>
                         </li>
                     </ul>
                 </div>
