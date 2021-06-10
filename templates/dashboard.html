@@ -12,37 +12,42 @@
 
 </head>
 
-<body style="background-image: url('../static/18067653\ \(1\).jpg');" class="bg-green-200">
+<body class="bg-gray-400 font-sans leading-normal tracking-normal">
 
 
-  <nav class="bg-gray-800 p-2 mt-0 w-full"> <!-- Add this to make the nav fixed: "fixed z-10 top-0" -->
+  <nav class="bg-gray-800 p-2 mt-0 w-full">
+    <!-- Add this to make the nav fixed: "fixed z-10 top-0" -->
     <div class="container mx-auto flex flex-wrap items-center">
-        <div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
-            <a class="text-white no-underline hover:text-white hover:no-underline" href="#">
-                <span class="text-2xl pl-2">Good Host Spaces</span>
-            </a>
-        </div>
-        <div class="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end">
-            <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
-                <li class="mr-3">
-                    <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/">Home</a>
-                </li>
-                <li class="mr-3">
-                    <a class="inline-block py-2 px-4 text-white no-underline" href="dashboard">Dashboard</a>
-                </li>
-                <li class="mr-3">
-                    <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/use_cycle">Submit Laundry</a>
-                </li>
-                <li class="mr-3">
-                    <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/contact_admin">Contact Admin</a>
-                </li>
-                <li class="mr-3">
-                    <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/logout">Logout</a>
-                </li>
-            </ul>
-        </div>
+      <div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
+        <a class="text-white no-underline hover:text-white hover:no-underline" href="#">
+          <span class="text-2xl pl-2">Good Host Spaces</span>
+        </a>
+      </div>
+      <div class="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end">
+        <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
+          <li class="mr-3">
+            <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+              href="/">Home</a>
+          </li>
+          <li class="mr-3">
+            <a class="inline-block py-2 px-4 text-white no-underline" href="dashboard">Dashboard</a>
+          </li>
+          <li class="mr-3">
+            <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+              href="/use_cycle">Submit Laundry</a>
+          </li>
+          <li class="mr-3">
+            <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+              href="/contact_admin">Contact Admin</a>
+          </li>
+          <li class="mr-3">
+            <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+              href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
     </div>
-</nav>
+  </nav>
 
   <!-- <ul class="messages">
     
@@ -50,31 +55,39 @@
   
 </ul> -->
 
-{% if messages %}
-    {% for message in messages %}
-      <!-- <li class="{{ message.tags }}">{{ message }}</li> -->
-      {% if message.tags == "success" %}
-        <div id="alert" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative " role="alert">
-          <!-- <strong class="font-bold">Holy smokes!</strong> -->
-          <span class="block sm:inline">{{ message }}</span>
-          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-            <button class="focus:outline-none" onclick="remove()" id="cross">
-              <svg class="fill-current h-6 w-6 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-            </button>
-          </span>
-        </div>
-      {% else %}
-        <div id="alert" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-          <span class="block sm:inline">{{ message }}</span>
-          <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-            <button class="focus:outline-none" onclick="remove()" id="cross">
-              <svg class="fill-current h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-            </button>
-          </span>
-        </div>
-        {%endif%}
-    {% endfor %}
-{% endif %}
+  {% if messages %}
+  {% for message in messages %}
+  <!-- <li class="{{ message.tags }}">{{ message }}</li> -->
+  {% if message.tags == "success" %}
+  <div id="alert" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative " role="alert">
+    <!-- <strong class="font-bold">Holy smokes!</strong> -->
+    <span class="block sm:inline">{{ message }}</span>
+    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+      <button class="focus:outline-none" onclick="remove()" id="cross">
+        <svg class="fill-current h-6 w-6 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <title>Close</title>
+          <path
+            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+        </svg>
+      </button>
+    </span>
+  </div>
+  {% else %}
+  <div id="alert" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+    <span class="block sm:inline">{{ message }}</span>
+    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+      <button class="focus:outline-none" onclick="remove()" id="cross">
+        <svg class="fill-current h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <title>Close</title>
+          <path
+            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+        </svg>
+      </button>
+    </span>
+  </div>
+  {%endif%}
+  {% endfor %}
+  {% endif %}
 
 
 
@@ -82,17 +95,18 @@
 
   <div class="w-5/6 mx-auto flex">
     <div class="m-7 flex-1">
-  <h2 class="text-4xl font-normal leading-normal mt-0 mb-2 text-blueGray-800">
-    Welcome {{user.student.full_name}}!
-  </h2>
-  <h3 class="text-3xl font-normal leading-normal mt-0 mb-2 text-blueGray-800">
-    You have {{user.student.cycles_remaining}} cycles remaining.
-  </h3>
-  </div></div>
+      <h2 class="text-4xl font-normal leading-normal mt-0 mb-2 text-blueGray-800">
+        Welcome {{user.student.full_name}}!
+      </h2>
+      <h3 class="text-3xl font-normal leading-normal mt-0 mb-2 text-blueGray-800">
+        You have {{user.student.cycles_remaining}} cycles remaining.
+      </h3>
+    </div>
+  </div>
   <!-- <h2 style="padding-left: 9%;">Welcome {{user.student.full_name}}!</h2>
   <h3 style="padding-left: 9%;">You have {{user.student.cycles_remaining}} cycles remaining.</h3>  -->
 
-  
+
 
   <table class="rounded-t-lg m-5 w-5/6 mx-auto bg-gray-800 text-gray-200">
     <tr class="text-left border-b border-gray-300">
@@ -119,8 +133,8 @@
     {% endfor%}
   </table>
 
-  
-  
+
+
 
   <!-- {% if fl == 0 %}
           <h2>welcome {{user.student.full_name}}</h2>
@@ -197,13 +211,13 @@
 
 
 
-  
+
   <!-- <script src="../static/message.js"></script> -->
   <script>
     function remove() {
-    var alert = document.getElementById('alert');
-    alert.classList.add('hidden');
-  }
+      var alert = document.getElementById('alert');
+      alert.classList.add('hidden');
+    }
   </script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
