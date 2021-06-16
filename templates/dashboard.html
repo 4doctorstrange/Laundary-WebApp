@@ -90,17 +90,26 @@
   {% endif %}
 
 
-
+  <div id="alert" class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative "
+  role="alert">
+    <span class="block sm:inline">You have {{user.student.cycles_remaining}} cycles remaining.</span>
+    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+      <button class="focus:outline-none" onclick="remove()" id="cross">
+        <svg class="fill-current h-6 w-6 text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <title>Close</title>
+          <path
+            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+        </svg>
+      </button>
+    </span>
+  </div>
   <br>
 
-  <div class="w-5/6 mx-auto flex">
+  <div class="w-5/6 mx-auto">
     <div class="m-7 flex-1">
-      <h2 class="text-4xl font-normal leading-normal mt-0 mb-2 text-blueGray-800">
+      <h2 class="text-4xl mb-2 font-normal leading-normal mt-0 text-blueGray-800">
         Welcome {{user.student.full_name}}!
       </h2>
-      <h3 class="text-3xl font-normal leading-normal mt-0 mb-2 text-blueGray-800">
-        You have {{user.student.cycles_remaining}} cycles remaining.
-      </h3>
     </div>
   </div>
   <!-- <h2 style="padding-left: 9%;">Welcome {{user.student.full_name}}!</h2>
