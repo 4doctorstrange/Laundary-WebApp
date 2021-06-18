@@ -1,41 +1,97 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Registeration form</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Registeration form</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="/static/login.css"> -->
+</head>
+
+<body class="bg-gray-400 font-sans leading-normal tracking-normal">
+    <nav class="bg-gray-800 p-2 mt-0 w-full fixed z-10 top-0">
+        <!-- Add this to make the nav fixed: "fixed z-10 top-0" -->
+        <div class="container mx-auto flex flex-wrap items-center">
+            <div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
+                <a class="text-white no-underline hover:text-white hover:no-underline" href="#">
+                    <span class="text-2xl pl-2">Good Host Spaces</span>
+                </a>
+            </div>
+            <div class="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end">
+                <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
+                    <li class="mr-3">
+                        <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+                            href="/">Home</a>
+                    </li>
+                    <li class="mr-3">
+                        <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+                            href="/login">Login</a>
+                    </li>
+                    <li class="mr-3">
+                        <a class="inline-block py-2 px-4 text-white no-underline" href="/user_register">Signup</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="pt-28 md:pt-36 max-w-lg mx-auto">
+        <a href="#">
+            <h1 class="text-4xl font-bold text-blueGray-800 text-center">Laundry</h1>
+        </a>
+    </header>
+
     {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
-        {{ message }}
-    </li>
-    {% endfor %}
-</ul>
-{% endif %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
+    <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
+        <section>
+            <h3 class="font-bold text-2xl">Welcome to Laundry</h3>
+            <p class="text-gray-600 pt-2">Sign up.</p>
+        </section>
 
-        <form action='' method='post' novalidate>
-            {% csrf_token %}
-            {%for st in form_student%}
-                {{st.label_tag}} {{st}} {{st.errors|striptags}}<br><br>
+        <section class="mt-10">
+            <form id="rform" class="flex flex-col" method="POST" action="/user_register" novalidate>
+                {% csrf_token %}
+                {%for st in form_student%}
+                <div class="mb-6 pt-3 rounded bg-gray-200">
+                    {{st.label_tag}} {{st}} {{st.errors|striptags}}
+                </div>
                 {% endfor %}
-            
+
                 {%for us in form_user%}
-                {{us.label_tag}} {{us}} {{us.errors|striptags}}<br><br>
+                <div class="mb-6 pt-3 rounded bg-gray-200">
+                    {{us.label_tag}} {{us}} {{us.errors|striptags}}
+                </div>
                 {% endfor %}
-            
-                <input type='submit' value="Submit">
-        </form> 
-        <a href='/'>Home</a>
-        
-        <script src="" async defer></script>
-    </body>
+
+                <button
+                    class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+                    type="submit">Sign Up</button>
+            </form>
+        </section>
+    </main>
+
+    <div class="max-w-lg mx-auto text-center mt-12 mb-6">
+        <p class="text-white">Already have an account? <a href="/login" class="font-bold hover:underline">Sign in</a>.
+        </p>
+    </div>
+
+    <!-- <a href='/'>Home</a> -->
+
+    <script src="../static/register.js" async defer></script>
+</body>
+
 </html>

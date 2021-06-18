@@ -5,16 +5,14 @@ from django.contrib.auth.models import User
 
 
 class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     full_name = models.CharField(max_length=100)
     block = models.CharField(max_length=2)
     room_no = models.IntegerField()
     cycles_remaining = models.IntegerField(default=3)
 
     def __str__(self):
-        return self.full_name
-
-
+        return str(self.user)
 
 class UseCycle(models.Model):
     cloth = [
@@ -24,9 +22,17 @@ class UseCycle(models.Model):
                    ('13', '13'), ('14', '14'), ('15', '15'))),
         ('16-20', (('16', '16'), ('17', '17'), ('18', '18'), ('19', '19'), ('20', '20')))
     ]
-    user = models.ForeignKey(Student, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
     no_of_clothes = models.CharField(max_length=6, choices=cloth)
     date_time = models.DateTimeField(auto_now_add=True, blank=True)
     delivery_date = models.DateField()
     collection_info = models.DateTimeField(null=True)
     status = models.CharField(max_length=30)
+
+    def __str__(self):
+        return str(self.student)
+
+class ContactAdmin(models.Model):
+    username = models.CharField(max_length=9)
+    full_name = models.CharField(max_length=25)
+    cycles_needed = models.IntegerField()

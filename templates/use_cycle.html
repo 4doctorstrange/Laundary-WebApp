@@ -1,22 +1,94 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Use a Cycle</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        <form action='' method='post' >
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Use a Cycle</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<!-- <body style="background-image: url('../static/18067653\ \(1\).jpg');"> -->
+  <body class="bg-gray-400 font-sans leading-normal tracking-normal">
+  <nav class="bg-gray-800 p-2 mt-0 w-full"> <!-- Add this to make the nav fixed: "fixed z-10 top-0" -->
+    <div class="container mx-auto flex flex-wrap items-center">
+        <div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
+            <a class="text-white no-underline hover:text-white hover:no-underline" href="#">
+                <span class="text-2xl pl-2">Good Host Spaces</span>
+            </a>
+        </div>
+        <div class="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end">
+            <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
+                <li class="mr-3">
+                    <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/">Home</a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="dashboard">Dashboard</a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block py-2 px-4 text-white no-underline" href="/use_cycle">Submit Laundry</a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/contact_admin">Contact Admin</a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+  <br>
+  <!-- <form action='' method='post' >
             {% csrf_token %}
             {{cycle_form.as_p}}
             
                 <input type='submit' value="Submit">
-        </form> 
-        
-        <script src="" async defer></script>
-    </body>
+        </form>  -->
+
+  <div class="flex items-center min-h-screen">
+    <div class="container mx-auto">
+      <div class="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-sm">
+        <div class="text-center">
+          <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">Submit Laundry</h1>
+          <!-- <p class="text-gray-400 dark:text-gray-400">Fill up the form below to send us a message.</p> -->
+        </div>
+        <div class="m-7">
+          <form action="/use_cycle" method="POST" id="form">
+            {% csrf_token %}
+
+            <!-- <input type="hidden" name="apikey" value="YOUR_ACCESS_KEY_HERE">
+                          <input type="hidden" name="subject" value="New Submission from Web3Forms">
+                          <input type="checkbox" name="botcheck" id="" style="display: none;"> -->
+
+
+            <div class="mb-6">
+              <label for="name" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Number of clothes</label>
+              <input type="number" min="1" max="30" name="number" id="name" placeholder="Max 30 clothes per cycle"
+                required
+                class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+            </div>
+            <!-- <div class="mb-6">
+                              <label for="message" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Your Message</label>
+      
+                              <textarea rows="5" name="message" id="message" placeholder="Your Message" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" required></textarea>
+                          </div> -->
+            <div class="mb-6">
+              <button type="submit"
+                class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Submit</button>
+            </div>
+            <p class="text-base text-center text-gray-400" id="result">
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="" async defer></script>
+</body>
+
 </html>

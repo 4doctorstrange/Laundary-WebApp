@@ -1,53 +1,187 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Dash</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        
-    </head>
-    <body>
-{% if fl == 0 %}
-        <h2>welcome {{user.student.full_name}}</h2>
-        {%if user.student.cycles_remaining < 1 %}
-        <h3>Your limit has been reached, pls contact adminstration to add more cycles</h3>
-        <a href="#">Contact admin</a> <a href='/logout'>Logout</a>
-        {% else %}
-        <h3>cycles remaining: {{user.student.cycles_remaining}}<br><br>
-        <a href='/use_cycle'>Use a Cycle</a> <a href='/logout'>Logout</a>
-        {% endif%}
-        <table class="table table-dark">
 
-  <thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Date</th>
-      <th scope="col">No of clothes</th>
-      <th scope="col">Delivery Date</th>
-      <th scope="col">Status</th>
-      <th scope="col">Collection Info</th>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Dash</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-gray-400 font-sans leading-normal tracking-normal">
+
+
+  <nav class="bg-gray-800 p-2 mt-0 w-full">
+    <!-- Add this to make the nav fixed: "fixed z-10 top-0" -->
+    <div class="container mx-auto flex flex-wrap items-center">
+      <div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
+        <a class="text-white no-underline hover:text-white hover:no-underline" href="#">
+          <span class="text-2xl pl-2">Good Host Spaces</span>
+        </a>
+      </div>
+      <div class="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end">
+        <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
+          <li class="mr-3">
+            <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+              href="/">Home</a>
+          </li>
+          <li class="mr-3">
+            <a class="inline-block py-2 px-4 text-white no-underline" href="dashboard">Dashboard</a>
+          </li>
+          <li class="mr-3">
+            <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+              href="/use_cycle">Submit Laundry</a>
+          </li>
+          <li class="mr-3">
+            <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+              href="/contact_admin">Contact Admin</a>
+          </li>
+          <li class="mr-3">
+            <a class="inline-block text-gray-500 no-underline hover:text-gray-200 hover:text-underline py-2 px-4"
+              href="/logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- <ul class="messages">
+    
+    <li class="success">Laundary Collected!</li>
+  
+</ul> -->
+
+  {% if messages %}
+  {% for message in messages %}
+  <!-- <li class="{{ message.tags }}">{{ message }}</li> -->
+  {% if message.tags == "success" %}
+  <div id="alert" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative " role="alert">
+    <!-- <strong class="font-bold">Holy smokes!</strong> -->
+    <span class="block sm:inline">{{ message }}</span>
+    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+      <button class="focus:outline-none" onclick="remove()" id="cross">
+        <svg class="fill-current h-6 w-6 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <title>Close</title>
+          <path
+            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+        </svg>
+      </button>
+    </span>
+  </div>
+  {% else %}
+  <div id="alert" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+    <span class="block sm:inline">{{ message }}</span>
+    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+      <button class="focus:outline-none" onclick="remove()" id="cross">
+        <svg class="fill-current h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <title>Close</title>
+          <path
+            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+        </svg>
+      </button>
+    </span>
+  </div>
+  {%endif%}
+  {% endfor %}
+  {% endif %}
+
+
+  <div id="alert" class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative "
+  role="alert">
+    <span class="block sm:inline">You have {{user.student.cycles_remaining}} cycles remaining.</span>
+    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+      <button class="focus:outline-none" onclick="remove()" id="cross">
+        <svg class="fill-current h-6 w-6 text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <title>Close</title>
+          <path
+            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+        </svg>
+      </button>
+    </span>
+  </div>
+  <br>
+
+  <div class="w-5/6 mx-auto">
+    <div class="m-7 flex-1">
+      <h2 class="text-4xl mb-2 font-normal leading-normal mt-0 text-blueGray-800">
+        Welcome {{user.student.full_name}}!
+      </h2>
+    </div>
+  </div>
+  <!-- <h2 style="padding-left: 9%;">Welcome {{user.student.full_name}}!</h2>
+  <h3 style="padding-left: 9%;">You have {{user.student.cycles_remaining}} cycles remaining.</h3>  -->
+
+
+
+  <table class="rounded-t-lg m-5 w-5/6 mx-auto bg-gray-800 text-gray-200">
+    <tr class="text-left border-b border-gray-300">
+      <th class="px-4 py-3">ID</th>
+      <th class="px-4 py-3">Date</th>
+      <th class="px-4 py-3">No. of clothes</th>
+      <th class="px-4 py-3">Delivery Date</th>
+      <th class="px-4 py-3">Status</th>
+      <th class="px-4 py-3">Collection Info</th>
     </tr>
-  </thead>
-  <tbody>
     {% for d in data%}
-    <tr>
-      <th scope="row">{{d.id}}</th>
-      <td>{{d.date_time}}</td>
-      <td>{{d.no_of_clothes}}</td>
-      <td>{{d.delivery_date}}</td>
-      <td>{{d.status}}</td>
-      <td>{{d.collection_info}}</td>
+    <tr class="bg-gray-700 border-b border-gray-600">
+      <th class="px-4 py-3" scope="row">{{d.id}}</th>
+      <td class="px-4 py-3">{{d.date_time}}</td>
+      <td class="px-4 py-3">{{d.no_of_clothes}}</td>
+      <td class="px-4 py-3">{{d.delivery_date}}</td>
+      <td class="px-4 py-3">{{d.status}}</td>
       {% if d.status == 'available'%}
-      <td><a href='/collect/{{d.id}}'> collect</a>
+      <td class="px-4 py-3"><a href='/collect/{{d.id}}' class='btn btn-primary btn-sm'> collect</a>
+        {%else%}
+      <td class="px-4 py-3">{{d.collection_info}}</td>
       {% endif %}
     </tr>
     {% endfor%}
-  </tbody>
-</table>
+  </table>
+
+
+
+
+  <!-- {% if fl == 0 %}
+          <h2>welcome {{user.student.full_name}}</h2>
+          {%if user.student.cycles_remaining < 1 %}
+            <h3>Your limit has been reached, pls contact adminstration to add more cycles</h3>
+            <a href="#">Contact admin</a> <a href='/logout'>Logout</a>
+            {% else %}
+            <h3>cycles remaining: {{user.student.cycles_remaining}}<br><br>
+            <a href='/use_cycle'>Use a Cycle</a> <a href='/logout'>Logout</a>
+          {% endif%}
+
+          <table class="table table-dark">
+              <thead>
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">No of clothes</th>
+                    <th scope="col">Delivery Date</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Collection Info</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for d in data%}
+                  <tr>
+                      <th scope="row">{{d.id}}</th>
+                      <td>{{d.date_time}}</td>
+                      <td>{{d.no_of_clothes}}</td>
+                      <td>{{d.delivery_date}}</td>
+                      <td>{{d.status}}</td>
+                      <td>{{d.collection_info}}</td>
+                      {% if d.status == 'available'%}
+                      <td><a href='/collect/{{d.id}}'> collect</a>
+                      {% endif %}
+                  </tr>
+                  {% endfor%}
+              </tbody>
+          </table>
 
 
 {%else%}
@@ -79,13 +213,30 @@
     </tr>
     {% endfor%}
   </tbody>
-</table>
 
-
+</table> 
 {%endif%}
-      
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    </body>
+-->
+
+
+
+
+  <!-- <script src="../static/message.js"></script> -->
+  <script>
+    function remove() {
+      var alert = document.getElementById('alert');
+      alert.classList.add('hidden');
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>
